@@ -319,14 +319,14 @@ Our marketplace is not just a showcase platform but also a collaborative space. 
 
 <!-- AGENT LIST -->
 
-| Recent Submits                                                                                                                                                                   | Description                                                                                                                                             |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [SUNO Song Creation Assistant](https://lobechat.com/discover/assistant/suno-lyrics-assistant)<br/><sup>By **[sqkkyzx](https://github.com/sqkkyzx)** on **2025-01-26**</sup>      | Can generate SUNO song creation parameters based on user needs<br/>`lyric-creation` `music-style` `arrangement` `parameter-settings`                    |
-| [The Great Biggus Dickus](https://lobechat.com/discover/assistant/all-knowing)<br/><sup>By **[CGitwater](https://github.com/CGitwater)** on **2025-01-24**</sup>                 | The almighty powerful god of klnowledge<br/>`biggus` `diccus`                                                                                           |
-| [PPT Production Expert](https://lobechat.com/discover/assistant/ppt-production-expert)<br/><sup>By **[patricleehua](https://github.com/patricleehua)** on **2025-01-24**</sup>   | Skilled in the rapid production and optimization of high-quality PPTs<br/>`ppt-production` `design` `consulting` `content-optimization` `user-support`  |
-| [OCR Document Transcription Assistant](https://lobechat.com/discover/assistant/ocr-markdown)<br/><sup>By **[Liangpi000](https://github.com/Liangpi000)** on **2025-01-24**</sup> | Specializes in document content transcription and markdown formatting<br/>`document-generation` `markdown` `formatting` `transcription` `task-guidance` |
+| Recent Submits                                                                                                                                                              | Description                                                                                                   |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| [Astrology Researcher](https://lobechat.com/discover/assistant/fate-researcher)<br/><sup>By **[Jack980506](https://github.com/Jack980506)** on **2025-02-06**</sup>         | Expert in BaZi astrology<br/>`astrology` `ba-zi` `traditional-culture`                                        |
+| [Language Charm Learning Mentor](https://lobechat.com/discover/assistant/bad-language-helper)<br/><sup>By **[Guducat](https://github.com/Guducat)** on **2025-02-06**</sup> | Specializes in teaching the charm of language and witty responses<br/>`language-learning` `dialogue-examples` |
+| [Allinone](https://lobechat.com/discover/assistant/allinone-v-1)<br/><sup>By **[AXuanCreator](https://github.com/AXuanCreator)** on **2025-02-06**</sup>                    | Innovation · Future · Excellence<br/>`programming` `low-cost` `concise-answers`                               |
+| [Deep Thinker](https://lobechat.com/discover/assistant/deep-thinker)<br/><sup>By **[prolapser](https://github.com/prolapser)** on **2025-02-06**</sup>                      | Deep, human-like thinking and analysis.<br/>`thinking` `reasoning` `reflection` `thought` `musings`           |
 
-> 📊 Total agents: [<kbd>**471**</kbd> ](https://lobechat.com/discover/assistants)
+> 📊 Total agents: [<kbd>**485**</kbd> ](https://lobechat.com/discover/assistants)
 
  <!-- AGENT LIST -->
 

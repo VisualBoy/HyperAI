@@ -1,7 +1,7 @@
+import { LOBE_DEFAULT_MODEL_LIST } from '@/config/aiModels';
+
 import { ModelProvider } from '../types';
 import { LobeOpenAICompatibleFactory } from '../utils/openaiCompatibleFactory';
-
-import { LOBE_DEFAULT_MODEL_LIST } from '@/config/aiModels';
 
 export interface MistralModelCard {
   capabilities: {
@@ -37,7 +37,9 @@ export const LobeMistralAI = LobeOpenAICompatibleFactory({
       return {
         contextWindowTokens: model.max_context_length,
         description: model.description,
-        enabled: LOBE_DEFAULT_MODEL_LIST.find((m) => model.id.endsWith(m.id))?.enabled || false,
+        displayName:
+          LOBE_DEFAULT_MODEL_LIST.find((m) => model.id === m.id)?.displayName ?? undefined,
+        enabled: LOBE_DEFAULT_MODEL_LIST.find((m) => model.id === m.id)?.enabled || false,
         functionCall: model.capabilities.function_calling,
         id: model.id,
         vision: model.capabilities.vision,

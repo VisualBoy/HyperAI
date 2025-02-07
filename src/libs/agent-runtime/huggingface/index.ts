@@ -1,13 +1,13 @@
 import { HfInference } from '@huggingface/inference';
 import urlJoin from 'url-join';
 
+import { LOBE_DEFAULT_MODEL_LIST } from '@/config/aiModels';
+import type { ChatModelCard } from '@/types/llm';
+
 import { AgentRuntimeErrorType } from '../error';
 import { ModelProvider } from '../types';
 import { LobeOpenAICompatibleFactory } from '../utils/openaiCompatibleFactory';
 import { convertIterableToStream } from '../utils/streams';
-
-import { LOBE_DEFAULT_MODEL_LIST } from '@/config/aiModels';
-import type { ChatModelCard } from '@/types/llm';
 
 export interface HuggingFaceModelCard {
   id: string;
@@ -56,11 +56,9 @@ export const LobeHuggingFaceAI = LobeOpenAICompatibleFactory({
     chatCompletion: () => process.env.DEBUG_HUGGINGFACE_CHAT_COMPLETION === '1',
   },
   models: async () => {
-    const visionKeywords = [
-      'image-text-to-text',
-      'multimodal',
-      'vision',
-    ];
+    const visionKeywords = ['image-text-to-text', 'multimodal', 'vision'];
+
+    const reasoningKeywords = ['deepseek-r1', 'qvq', 'qwq'];
 
     // ref: https://huggingface.co/docs/hub/api
     const url = 'https://huggingface.co/api/models';
@@ -74,11 +72,19 @@ export const LobeHuggingFaceAI = LobeOpenAICompatibleFactory({
     return modelList
       .map((model) => {
         return {
-          enabled: LOBE_DEFAULT_MODEL_LIST.find((m) => model.id.endsWith(m.id))?.enabled || false,
-          functionCall: model.tags.some(tag => tag.toLowerCase().includes('function-calling')),
+          contextWindowTokens:
+            LOBE_DEFAULT_MODEL_LIST.find((m) => model.id === m.id)?.contextWindowTokens ??
+            undefined,
+          displayName:
+            LOBE_DEFAULT_MODEL_LIST.find((m) => model.id === m.id)?.displayName ?? undefined,
+          enabled: LOBE_DEFAULT_MODEL_LIST.find((m) => model.id === m.id)?.enabled || false,
+          functionCall: model.tags.some((tag) => tag.toLowerCase().includes('function-calling')),
           id: model.id,
-          vision: model.tags.some(tag =>
-            visionKeywords.some(keyword => tag.toLowerCase().includes(keyword))
+          reasoning:
+            model.tags.some((tag) => tag.toLowerCase().includes('reasoning')) ||
+            reasoningKeywords.some((keyword) => model.id.toLowerCase().includes(keyword)),
+          vision: model.tags.some((tag) =>
+            visionKeywords.some((keyword) => tag.toLowerCase().includes(keyword)),
           ),
         };
       })

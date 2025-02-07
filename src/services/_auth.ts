@@ -9,7 +9,6 @@ import {
   AzureOpenAIKeyVault,
   CloudflareKeyVault,
   OpenAICompatibleKeyVault,
-  WenxinKeyVault,
 } from '@/types/user/settings';
 import { createJWT } from '@/utils/jwt';
 
@@ -18,7 +17,6 @@ export const getProviderAuthPayload = (
   keyVaults: OpenAICompatibleKeyVault &
     AzureOpenAIKeyVault &
     AWSBedrockKeyVault &
-    WenxinKeyVault &
     CloudflareKeyVault,
 ) => {
   switch (provider) {
@@ -47,25 +45,13 @@ export const getProviderAuthPayload = (
       };
     }
 
-    case ModelProvider.Wenxin: {
-      const { secretKey, accessKey } = keyVaults;
-
-      const apiKey = (accessKey || '') + (secretKey || '');
-
-      return {
-        apiKey,
-        wenxinAccessKey: accessKey,
-        wenxinSecretKey: secretKey,
-      };
-    }
-
     case ModelProvider.Azure: {
       return {
         apiKey: keyVaults.apiKey,
-        
+
         apiVersion: keyVaults.apiVersion,
         /** @deprecated */
-azureApiVersion: keyVaults.apiVersion,
+        azureApiVersion: keyVaults.apiVersion,
         baseURL: keyVaults.baseURL || keyVaults.endpoint,
       };
     }
@@ -77,10 +63,10 @@ azureApiVersion: keyVaults.apiVersion,
     case ModelProvider.Cloudflare: {
       return {
         apiKey: keyVaults?.apiKey,
-        
+
         baseURLOrAccountID: keyVaults?.baseURLOrAccountID,
         /** @deprecated */
-cloudflareBaseURLOrAccountID: keyVaults?.baseURLOrAccountID,
+        cloudflareBaseURLOrAccountID: keyVaults?.baseURLOrAccountID,
       };
     }
 

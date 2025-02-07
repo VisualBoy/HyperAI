@@ -1,10 +1,10 @@
 import OpenAI from 'openai';
 
-import { ChatStreamPayload, ModelProvider } from '../types';
-import { LobeOpenAICompatibleFactory } from '../utils/openaiCompatibleFactory';
-
 import { LOBE_DEFAULT_MODEL_LIST } from '@/config/aiModels';
 import type { ChatModelCard } from '@/types/llm';
+
+import { ChatStreamPayload, ModelProvider } from '../types';
+import { LobeOpenAICompatibleFactory } from '../utils/openaiCompatibleFactory';
 
 export interface BaichuanModelCard {
   function_call: boolean;
@@ -32,7 +32,7 @@ export const LobeBaichuanAI = LobeOpenAICompatibleFactory({
     chatCompletion: () => process.env.DEBUG_BAICHUAN_CHAT_COMPLETION === '1',
   },
   models: async ({ client }) => {
-    const modelsPage = await client.models.list() as any;
+    const modelsPage = (await client.models.list()) as any;
     const modelList: BaichuanModelCard[] = modelsPage.data;
 
     return modelList
@@ -40,7 +40,7 @@ export const LobeBaichuanAI = LobeOpenAICompatibleFactory({
         return {
           contextWindowTokens: model.max_input_length,
           displayName: model.model_show_name,
-          enabled: LOBE_DEFAULT_MODEL_LIST.find((m) => model.model.endsWith(m.id))?.enabled || false,
+          enabled: LOBE_DEFAULT_MODEL_LIST.find((m) => model.model === m.id)?.enabled || false,
           functionCall: model.function_call,
           id: model.model,
           maxTokens: model.max_tokens,

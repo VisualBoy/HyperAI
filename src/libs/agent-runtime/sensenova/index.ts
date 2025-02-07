@@ -1,8 +1,8 @@
-import { ModelProvider } from '../types';
-import { LobeOpenAICompatibleFactory } from '../utils/openaiCompatibleFactory';
-
 import { LOBE_DEFAULT_MODEL_LIST } from '@/config/aiModels';
 import type { ChatModelCard } from '@/types/llm';
+
+import { ModelProvider } from '../types';
+import { LobeOpenAICompatibleFactory } from '../utils/openaiCompatibleFactory';
 
 export interface SenseNovaModelCard {
   id: string;
@@ -33,20 +33,25 @@ export const LobeSenseNovaAI = LobeOpenAICompatibleFactory({
     chatCompletion: () => process.env.DEBUG_SENSENOVA_CHAT_COMPLETION === '1',
   },
   models: async ({ client }) => {
-    const functionCallKeywords = [
-      'sensechat-5',
-    ];
+    const functionCallKeywords = ['sensechat-5'];
 
     client.baseURL = 'https://api.sensenova.cn/v1/llm';
 
-    const modelsPage = await client.models.list() as any;
+    const modelsPage = (await client.models.list()) as any;
     const modelList: SenseNovaModelCard[] = modelsPage.data;
 
     return modelList
       .map((model) => {
         return {
-          enabled: LOBE_DEFAULT_MODEL_LIST.find((m) => model.id.endsWith(m.id))?.enabled || false,
-          functionCall: functionCallKeywords.some(keyword => model.id.toLowerCase().includes(keyword)),
+          contextWindowTokens:
+            LOBE_DEFAULT_MODEL_LIST.find((m) => model.id === m.id)?.contextWindowTokens ??
+            undefined,
+          displayName:
+            LOBE_DEFAULT_MODEL_LIST.find((m) => model.id === m.id)?.displayName ?? undefined,
+          enabled: LOBE_DEFAULT_MODEL_LIST.find((m) => model.id === m.id)?.enabled || false,
+          functionCall: functionCallKeywords.some((keyword) =>
+            model.id.toLowerCase().includes(keyword),
+          ),
           id: model.id,
           vision: model.id.toLowerCase().includes('vision'),
         };
